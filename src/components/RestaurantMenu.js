@@ -38,7 +38,6 @@ import ResCategory from "./ResCategory";
 
 const RestaurantMenu = () => {
   const { id } = useParams();
-
   const resInfo = useRestaurantMenu(id);
   const [showIndex, setShowIndex] = useState(0);
 
@@ -54,22 +53,9 @@ const RestaurantMenu = () => {
     sla,
     feeDetails,
   } = resInfo?.cards[2]?.card?.card?.info;
-
-  const { itemCards } =
-    resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
-  // console.log(itemCards);
-
-//   console.log(resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
-
-  const categories =
-    resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
-      (c) =>
-        c.card?.card?.["@type"] ===
-        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-    );
-//   console.log("category below");
-//   console.log(categories);
-//   console.log("category above");
+    const itemType = 'type.googleapis.com/swiggy.presentation.food.v2.ItemCategory';
+    const data = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+    const categories = data.filter((c) => c.card?.card?.["@type"] === itemType);
 
   return (
     <div className="menu">
