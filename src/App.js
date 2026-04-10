@@ -7,13 +7,14 @@ import ErrorPage from './components/error';
 import Login from './components/login';
 import RestaurantMenu from './components/RestaurantMenu';
 import UserContext from './utils/UserContext';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import appStore from './store/appStore';
-import Cart from './components/Cart';
+const Cart = lazy(() => import('./components/Cart'));
 
 export function App() {
   const [userName, setUserName] = useState();
+
 
   useEffect(() => {
     const data = {
@@ -53,7 +54,10 @@ const appRouter = createBrowserRouter([
             },
             {
               path: '/cart',
-              element: <Cart />
+              element: 
+                <Suspense fallback={<span>Loading...</span>}>
+                  <Cart />
+                </Suspense>
             }
         ]
     },
