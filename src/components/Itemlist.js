@@ -1,16 +1,16 @@
 import { CDN_URL } from '../constants/common';
-// import { useDispatch } from 'react-redux';
-// import { addItem } from '../utilis/cartSlice';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../store/cartSlice';
 
 const Itemlist = ({ items }) => {
-  console.log(items);
+  // console.log(items);
 
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   
   const handleAddItem = (res) => {
     // dispatch an action
-    // dispatch(addItem(res));
-    alert("item added to cart")
+    dispatch(addItem(res));
+    // alert("item added to cart")
   };
 
   return (

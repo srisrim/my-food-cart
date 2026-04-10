@@ -1,13 +1,16 @@
 import { Link } from "react-router";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { LOGO_URL } from "../constants/common";
-// import { useSelector } from "react-redux";
+import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
+
 const Header = () => {
-  
   const [btnName, setBtnName] = useState("Login")
   //subscribing to the store using selector
-  // const cartItems = useSelector((store) => store.cart.items)
-  // console.log(cartItems);
+  const cartItems = useSelector((store) => store.cart.items)
+  console.log(cartItems);
+  const {isLoggedIn} = useContext(UserContext);
+  // console.log(isLoggedIn);
   return (
     <div className="header">
       <div className="logo-container">
@@ -27,9 +30,12 @@ const Header = () => {
           <li>
             <Link to="/grocery">Grocery</Link>
           </li>
-          {/* <li className="p-2 bg-green-500 rounded-lg">
+          <li>
+            <span> {isLoggedIn}</span>
+          </li>
+          <li className="p-2 bg-green-500 rounded-lg">
             <Link to="/cart">Cart({cartItems.length} items)</Link>
-          </li> */}
+          </li>
         </ul>
       </div>
     </div>
