@@ -44,12 +44,6 @@ body {
     list-style: none;
     margin: 0px 10px;
     cursor: pointer;
-    color: rgb(46, 42, 42);
-}
-
-.nav-items>ul>li:hover {
-    text-decoration: underline;
-    color: black;
 }
 
 .btn {

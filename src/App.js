@@ -11,10 +11,10 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import appStore from './store/appStore';
 const Cart = lazy(() => import('./components/Cart'));
+const Demo = lazy(() => import('./components/Demo'));
 
 export function App() {
   const [userName, setUserName] = useState();
-
 
   useEffect(() => {
     const data = {
@@ -57,6 +57,13 @@ const appRouter = createBrowserRouter([
               element: 
                 <Suspense fallback={<span>Loading...</span>}>
                   <Cart />
+                </Suspense>
+            },
+            {
+              path: '/demo',
+              element:
+                <Suspense fallback={<span>Loading</span>}>
+                  <Demo />
                 </Suspense>
             }
         ]

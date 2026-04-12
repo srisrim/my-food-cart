@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "source": "src/index.html",
   "scripts": {
-    "start": "parcel --no-cache",
+    "start": "rmdir /s /q .parcel-cache dist && parcel",
     "build": "parcel build",
     "test": "jest",
     "watch-test": "jest --watch"

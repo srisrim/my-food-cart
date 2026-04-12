@@ -33,7 +33,7 @@ const Itemlist = ({ items }) => {
                     src={CDN_URL + res?.card?.info?.imageId}
                     className="w-full rounded-lg object-cover aspect-square"
                 />
-                <button className="w-full py-1.5 text-sm font-medium border border-gray-300 rounded-lg text-green-600 bg-white"
+                <button className="w-full py-1.5 text-sm font-medium border border-gray-300 rounded-lg text-green-600 bg-white hover:bg-green-600 hover:text-white"
                         onClick={() => handleAddItem(res)}>
                     ADD +
                 </button>

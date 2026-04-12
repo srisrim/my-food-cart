@@ -33,7 +33,7 @@ const Header = () => {
           <li>
             <span> {isLoggedIn}</span>
           </li>
-          <li className="p-2 bg-green-500 rounded-lg">
+          <li className="p-2 text-white bg-orange-500 rounded-lg hover:bg-orange-600">
             <Link to="/cart">Cart({cartItems.length} items)</Link>
           </li>
         </ul>
