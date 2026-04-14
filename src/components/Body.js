@@ -3,26 +3,34 @@ import RestaurantCard from './restaurantCard';
 import { useState } from "react";
 import {API_URL} from '../constants/common'
 import { Link } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAllRestaurants, setLoading } from '../store/restaurantsSlice';
 
 const Body = () => {
     const [searchText, setSearchText] = useState("");
-    const [resList, setResList] = useState([]);
+    // const [resList, setResList] = useState([]);
     const [filteredListData, setFilteredListData] = useState([]);
+    const dispatch = useDispatch();
+
+    // read data from store
+    const { list } = useSelector((state) => state.restaurants); // list it the key inside my slice
 
     useEffect(() => {
         fetchRestaurantList();
     }, []);
 
     const fetchRestaurantList = async () => {
+        dispatch(setLoading(true));
         const response = await fetch(API_URL);
         const json = await response.json();
         const restaurants = json.data.data.cards[1].card.card.gridElements.infoWithStyle.restaurants;
-        setResList(restaurants);
+        dispatch(setAllRestaurants(restaurants));
+        // setResList(restaurants);
         setFilteredListData(restaurants);
     }
 
     const handleSearch = () => {
-        const filteredListData = resList.filter((res) => 
+        const filteredListData = list.filter((res) => 
             res.info.name.toLowerCase().includes(searchText.toLowerCase())
         )
         setFilteredListData(filteredListData);
@@ -32,7 +40,7 @@ const Body = () => {
         const value = e.target.value;
         setSearchText(value);
         if (value === "") {
-            setFilteredListData(resList);
+            setFilteredListData(list);
         }
     };
 
@@ -60,7 +68,7 @@ const Body = () => {
 
                 {/* Restaurant grid — below the search bar */}
                 <div className="rest-container px-6 py-6">
-                    {filteredListData.map((restaurant) => (
+                    {filteredListData?.map((restaurant) => (
                         <Link
                             key={restaurant.info.id}
                             to={"/restaurant/" + restaurant.info.id}

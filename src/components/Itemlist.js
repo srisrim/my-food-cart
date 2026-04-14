@@ -7,7 +7,7 @@ import Snackbar from './Snackbar';
 const Itemlist = ({ items }) => {
   const { snackBar, showSnackBar } = useSnackbar();
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   
   const handleAddItem = (res) => {
     dispatch(addItem(res));
