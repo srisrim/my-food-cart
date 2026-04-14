@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
 import appStore from './store/appStore';
 const Cart = lazy(() => import('./components/Cart'));
 const Demo = lazy(() => import('./components/Demo'));
+const DemoHooks = lazy(() => import('./components/useCallBack'));
 
 export function App() {
   const [userName, setUserName] = useState();
@@ -64,6 +65,13 @@ const appRouter = createBrowserRouter([
               element:
                 <Suspense fallback={<span>Loading</span>}>
                   <Demo />
+                </Suspense>
+            },
+            {
+              path: '/hooks',
+              element:
+                <Suspense fallback={<span>Loading</span>}>
+                  <DemoHooks />
                 </Suspense>
             }
         ]

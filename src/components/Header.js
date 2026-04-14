@@ -8,9 +8,7 @@ const Header = () => {
   const [btnName, setBtnName] = useState("Login")
   //subscribing to the store using selector
   const cartItems = useSelector((store) => store.cart.items)
-  console.log(cartItems);
   const {isLoggedIn} = useContext(UserContext);
-  // console.log(isLoggedIn);
   return (
     <div className="header">
       <div className="logo-container">
