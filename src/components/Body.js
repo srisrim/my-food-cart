@@ -5,6 +5,7 @@ import {API_URL} from '../constants/common'
 import { Link } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAllRestaurants, setLoading } from '../store/restaurantsSlice';
+import Modal from './modal';
 
 const Body = () => {
     const [searchText, setSearchText] = useState("");
@@ -13,7 +14,7 @@ const Body = () => {
     const dispatch = useDispatch();
 
     // read data from store
-    const { list } = useSelector((state) => state.restaurants); // list it the key inside my slice
+    const { list, loading } = useSelector((state) => state.restaurants); // list it the key inside my slice
 
     useEffect(() => {
         fetchRestaurantList();
@@ -27,6 +28,7 @@ const Body = () => {
         dispatch(setAllRestaurants(restaurants));
         // setResList(restaurants);
         setFilteredListData(restaurants);
+        dispatch(setLoading(false));
     }
 
     const handleSearch = () => {
@@ -68,14 +70,31 @@ const Body = () => {
 
                 {/* Restaurant grid — below the search bar */}
                 <div className="rest-container px-6 py-6">
-                    {filteredListData?.map((restaurant) => (
-                        <Link
-                            key={restaurant.info.id}
-                            to={"/restaurant/" + restaurant.info.id}
-                        >
-                            <RestaurantCard resData={restaurant} />
-                        </Link>
-                    ))}
+                    {loading ? (
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {[...Array(8)].map((_, i) => (
+                            <div key={i} className="bg-white rounded-2xl h-64 animate-pulse border border-gray-100" />
+                            ))}
+                        </div>
+                    ) : filteredListData.length === 0 ? (
+                        <div className="text-center py-16 text-gray-400">
+                            <p className="text-4xl mb-3">🔍</p>
+                            <p>No items found. Try a different search.</p>
+                        </div>
+                    ) : (
+                        <>
+                            {
+                                filteredListData?.map((restaurant) => (
+                                    <Link
+                                        key={restaurant.info.id}
+                                        to={"/restaurant/" + restaurant.info.id}
+                                    >
+                                        <RestaurantCard resData={restaurant} />
+                                    </Link>
+                                ))
+                            }
+                        </>
+                    )}
                 </div>
             </div>
         </>
